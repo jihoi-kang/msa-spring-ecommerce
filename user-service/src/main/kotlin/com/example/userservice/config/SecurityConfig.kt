@@ -17,7 +17,7 @@ class SecurityConfig {
         http.csrf { it.disable() }
             .authorizeHttpRequests {
                 it.requestMatchers(
-                    AntPathRequestMatcher("/users/**"),
+                    AntPathRequestMatcher("/user-service/**"),
                     toH2Console(),
                 )
                     .permitAll()

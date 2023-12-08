@@ -6,15 +6,15 @@ import jakarta.persistence.*
 @Table(name = "users")
 class UserEntity(
     @Column(nullable = false, length = 50, unique = true)
-    private val email: String,
+    val email: String,
     @Column(nullable = false, length = 50)
-    private val name: String,
+    val name: String,
     @Column(nullable = false, unique = true)
-    private val userId: String,
+    val userId: String,
     @Column(nullable = false, unique = true)
-    private val encryptedPwd: String,
+    val encryptedPwd: String,
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private val id: Long = 0L
+    val id: Long = 0L
 }

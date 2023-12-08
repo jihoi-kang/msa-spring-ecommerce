@@ -1,5 +1,6 @@
 package com.example.userservice.dto
 
+import com.example.userservice.vo.ResponseOrder
 import java.time.LocalDateTime
 
 data class UserDto(
@@ -9,4 +10,5 @@ data class UserDto(
     val pwd: String,
     val createdAt: LocalDateTime,
     val encryptedPwd: String,
+    val orders: MutableList<ResponseOrder> = mutableListOf(),
 )

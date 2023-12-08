@@ -4,6 +4,8 @@ import com.example.userservice.dto.UserDto
 import com.example.userservice.entity.UserEntity
 import com.example.userservice.repository.UserRepository
 import com.example.userservice.vo.RequestUser
+import com.example.userservice.vo.ResponseOrder
+import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -29,5 +31,28 @@ class UserServiceImpl(
         userRepository.save(UserEntity(userDto.email, userDto.name, userDto.userId, userDto.encryptedPwd))
 
         return userDto
+    }
+
+    override fun getUserById(userId: String): UserDto {
+        val userEntity: UserEntity = userRepository.findByUserId(userId)
+            ?: throw UsernameNotFoundException("User not found")
+
+        val userDto = UserDto(
+            userEntity.userId,
+            userEntity.email,
+            userEntity.name,
+            "N/A",
+            LocalDateTime.now(),
+            userEntity.encryptedPwd,
+        )
+
+        val orders: List<ResponseOrder> = listOf()
+        orders.forEach { userDto.orders.add(it) }
+
+        return userDto
+    }
+
+    override fun getUsers(): List<UserEntity> {
+        return userRepository.findAll()
     }
 }
